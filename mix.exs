@@ -24,8 +24,9 @@ defmodule KioskSystemRpi3.Mixfile do
       package: package(),
       deps: deps(),
       nerves_package: nerves_package(),
-      aliases: ["deps.precompile": ["nerves.env", "nerves.precompile", "deps.precompile"],
-      "deps.loadpaths":  ["deps.loadpaths", "nerves.loadpaths"]]
+      aliases: [
+        "deps.precompile": ["nerves.env", "deps.precompile"],
+        "deps.get": ["deps.get", "nerves.deps.get"]]
     ]
   end
 
@@ -36,8 +37,8 @@ defmodule KioskSystemRpi3.Mixfile do
   def nerves_package do
     [
       type: :system,
-      artifact_url: [
-        "https://github.com/letoteteam/#{@app}/releases/download/v#{@version}/#{@app}-v#{@version}.tar.gz",
+      artifact_sites: [
+        {:github_releases, "letoteteam/#{@app}"}
       ],
       platform: Nerves.System.BR,
       platform_config: [
@@ -49,9 +50,10 @@ defmodule KioskSystemRpi3.Mixfile do
 
   defp deps do
     [
-      {:nerves, "~> 0.8", runtime: false},
-      {:nerves_system_br, "~> 0.15.1", runtime: false},
-      {:nerves_toolchain_arm_unknown_linux_gnueabihf, "~> 0.12.1", runtime: false}
+      {:nerves, "~> 0.9", runtime: false},
+      {:nerves_system_br, "~> 0.17.0", runtime: false},
+      {:nerves_toolchain_arm_unknown_linux_gnueabihf, "~> 0.13.0", runtime: false},
+      {:nerves_system_linter, "~> 0.2.2", runtime: false}
     ]
   end
 
